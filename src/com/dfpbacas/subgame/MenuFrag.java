@@ -1,7 +1,5 @@
 package com.dfpbacas.subgame;
 
-import com.dfpbacas.subgame.R;
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -22,7 +20,7 @@ public class MenuFrag extends Fragment implements View.OnClickListener {
 public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		
 		View v = inflater.inflate(R.layout.menu_layout, container, false);
-		mSplashView = (ImageView)v.findViewById(R.id.menu_view);
+		mSplashView = (ImageView)v.findViewById(R.layout.menu_layout);
 		mSplashView.setOnClickListener(this);
 		mExit = (Button)v.findViewById(R.id.exit);
 		mExit.setOnClickListener(this);
