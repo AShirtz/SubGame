@@ -1,30 +1,26 @@
 package com.dfpbacas.subgame;
 
-import com.dfpbacas.subgame.MenuFrag;
-import com.example.SubGameObj.Entity.Ship;
-import com.example.SubGameObj.Tests.UnitTests;
-
 import android.os.Bundle;
-import android.app.Activity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
+import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 
-public class MainActivity extends Activity {
-	private MenuFrag mMenuFragment;
+public class MainActivity extends FragmentActivity {
+	
+	private MenuFrag mMenuFragment = null;
+	private final String MENU_FRAG_TAG = "menu_frag_tag";
+	
+	private DisplayGameFragment mDisplayGameFragment = null;
+	private final String DISPLAY_GAME_FRAG_TAG = "display_game_frag_tag";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				UnitTests.runTests();
-				Log.v("MainActivity", "UnitTests completed");		
-			}
-		}).start();
+		mDisplayGameFragment = (DisplayGameFragment) this.getSupportFragmentManager().findFragmentByTag(DISPLAY_GAME_FRAG_TAG);
+		if (mDisplayGameFragment == null) {
+			mDisplayGameFragment = new DisplayGameFragment();
+			this.getSupportFragmentManager().beginTransaction().add(android.R.id.content, mDisplayGameFragment, DISPLAY_GAME_FRAG_TAG).commit();
+		}
 	}
 
 	@Override
