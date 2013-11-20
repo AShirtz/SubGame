@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -47,6 +49,22 @@ public class SubGameSurfaceView extends SurfaceView implements SurfaceHolder.Cal
 	public void surfaceDestroyed(SurfaceHolder arg0) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	@Override
+	public boolean onTouchEvent (MotionEvent event) {
+		switch (event.getAction()) {
+		case (MotionEvent.ACTION_DOWN) : 
+			Log.v("onTouchEvent", "down");
+			break;
+		case (MotionEvent.ACTION_MOVE) :
+			Log.v("onTouchEvent", "move");
+			break;
+		case (MotionEvent.ACTION_UP) :
+			Log.v("onTouchEvent", "up");
+			break;
+		}
+		return true;
 	}
 
 }
