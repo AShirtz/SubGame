@@ -1,8 +1,6 @@
 package com.dfpbacas.subgame;
 
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -11,7 +9,7 @@ import android.view.SurfaceView;
 
 public class SubGameSurfaceView extends SurfaceView implements SurfaceHolder.Callback {
 	
-	private SurfaceHolder mSurfaceHolder = null;
+	private DisplayGameFragment mGameFrag = null;
 	
 	public SubGameSurfaceView(Context context) {
 		super(context);
@@ -29,8 +27,11 @@ public class SubGameSurfaceView extends SurfaceView implements SurfaceHolder.Cal
 	}
 	
 	private void init() {
-		mSurfaceHolder = this.getHolder();
-		mSurfaceHolder.addCallback(this);
+		this.getHolder().addCallback(this);
+	}
+	
+	public void setGameFragment(DisplayGameFragment DGFrag) {
+		this.mGameFrag = DGFrag;
 	}
 
 	@Override
@@ -40,14 +41,11 @@ public class SubGameSurfaceView extends SurfaceView implements SurfaceHolder.Cal
 
 	@Override
 	public void surfaceCreated(SurfaceHolder arg0) {
-		Canvas canvas = mSurfaceHolder.lockCanvas();
-		canvas.drawColor(Color.BLACK);
-		mSurfaceHolder.unlockCanvasAndPost(canvas);
+		this.mGameFrag.viewCreated();
 	}
 
 	@Override
 	public void surfaceDestroyed(SurfaceHolder arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 	
