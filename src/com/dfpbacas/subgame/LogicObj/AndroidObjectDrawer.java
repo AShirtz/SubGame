@@ -2,19 +2,20 @@ package com.dfpbacas.subgame.LogicObj;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.util.Log;
-import android.view.SurfaceHolder;
 
+import com.dfpbacas.subgame.DisplayGameFragment;
 import com.example.SubGameObj.ObjectDrawer;
 import com.example.SubGameObj.Utils.Position;
 
 public class AndroidObjectDrawer extends ObjectDrawer {
 	
-	private SurfaceHolder mSurfaceHolder = null;
+	private DisplayGameFragment mGameFragment = null;
 	private Canvas mCanvas = null;
 	
-	public void setSurfaceHolder (SurfaceHolder holder) {
-		this.mSurfaceHolder = holder;
+	public void setGameFragment (DisplayGameFragment frag) {
+		this.mGameFragment = frag;
 	}
 	
 	@Override
@@ -25,6 +26,9 @@ public class AndroidObjectDrawer extends ObjectDrawer {
 	@Override
 	public void drawEnemyShip(Position arg0) {
 		Log.v("AndroidObjectDrawer", "drawEnemyShip: " + arg0.toString() + "\n");
+		Paint temp = new Paint();
+		temp.setColor(Color.WHITE);
+		this.mCanvas.drawCircle(arg0.getX(), arg0.getY(), 10, temp);
 	}
 
 	@Override
@@ -61,14 +65,14 @@ public class AndroidObjectDrawer extends ObjectDrawer {
 	@Override
 	public void postChanges() {
 		Log.v("AndroidObjectDrawer", "postChanges\n");
-		this.mSurfaceHolder.unlockCanvasAndPost(this.mCanvas);
+		this.mGameFragment.postCanvas(this.mCanvas);
 		this.mCanvas = null;
 	}
 
 	@Override
 	public void prepareDrawer() {
 		Log.v("AndroidObjectDrawer", "prepareDrawer\n");
-		this.mCanvas = this.mSurfaceHolder.lockCanvas();
+		this.mCanvas = this.mGameFragment.lockCanvas();
 	}
 
 }
