@@ -15,12 +15,27 @@ public class MainActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		/*setContentView(R.layout.activity_main);
+		mDisplayGameFragment = (DisplayGameFragment) this.getSupportFragmentManager().findFragmentByTag(DISPLAY_GAME_FRAG_TAG);
+		if (mDisplayGameFragment == null) {
+			mDisplayGameFragment = new DisplayGameFragment();
+			this.getSupportFragmentManager().beginTransaction().add(android.R.id.content, mDisplayGameFragment, DISPLAY_GAME_FRAG_TAG).commit();
+		}*/
 		setContentView(R.layout.activity_main);
+		mMenuFragment = (MenuFrag) this.getSupportFragmentManager().findFragmentByTag(MENU_FRAG_TAG);
+		if(mMenuFragment == null){
+			mMenuFragment = new MenuFrag();
+			this.getSupportFragmentManager().beginTransaction().add(android.R.id.content, mMenuFragment, MENU_FRAG_TAG).commit();
+			
+		}
+	}
+	protected void GameScreen(Bundle savedInstanceState){		
 		mDisplayGameFragment = (DisplayGameFragment) this.getSupportFragmentManager().findFragmentByTag(DISPLAY_GAME_FRAG_TAG);
 		if (mDisplayGameFragment == null) {
 			mDisplayGameFragment = new DisplayGameFragment();
 			this.getSupportFragmentManager().beginTransaction().add(android.R.id.content, mDisplayGameFragment, DISPLAY_GAME_FRAG_TAG).commit();
 		}
+		
 	}
 
 	@Override
