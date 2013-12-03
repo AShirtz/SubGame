@@ -66,6 +66,7 @@ public class DisplayGameFragment extends Fragment implements SurfaceHolder.Callb
 		switch (event.getAction()) {
 		case (MotionEvent.ACTION_DOWN) : 
 			Log.v("onTouchEvent", "down");
+			this.mGameThread.mGameController.setPointer(new Position((int)event.getX(), (int) event.getY()));
 			break;
 		case (MotionEvent.ACTION_MOVE) :
 			Log.v("onTouchEvent", "move");
@@ -91,15 +92,15 @@ public class DisplayGameFragment extends Fragment implements SurfaceHolder.Callb
 		
 		@Override
 		public void run () {
-			mGameController.createEnemyShip();
-			mGameController.createEnemyShip();
-			for (Ship ship :mGameController.getGameMap().getmActiveShips()) {
-				ship.setDestination(new Position (100, 100));
-			}
-			for (int i = 0; i < 200; i++) {
+			mRunning = true;
+			mGameController.createPlayerSub();
+			while (mRunning) {
 				synchronized (mGameController) {
-					mGameController.onTurn();
-					mGameController.drawGame();
+					mGameController.onTurn(); 
+				}
+				mGameController.drawGame();
+				if (mGameController.getPlayerSub().isDestroyed()) {
+					mRunning = false;
 				}
 			}
 		}

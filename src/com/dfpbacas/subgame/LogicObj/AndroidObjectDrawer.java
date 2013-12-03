@@ -7,7 +7,12 @@ import android.util.Log;
 
 import com.dfpbacas.subgame.DisplayGameFragment;
 import com.example.SubGameObj.ObjectDrawer;
+import com.example.SubGameObj.Entity.EnemyShip;
+import com.example.SubGameObj.Entity.Submarine;
+import com.example.SubGameObj.Event.Explosion;
 import com.example.SubGameObj.Utils.Position;
+import com.example.SubGameObj.Weapon.DepthCharge;
+import com.example.SubGameObj.Weapon.Torpedo;
 
 public class AndroidObjectDrawer extends ObjectDrawer {
 	
@@ -19,26 +24,29 @@ public class AndroidObjectDrawer extends ObjectDrawer {
 	}
 	
 	@Override
-	public void drawDepthCharge(Position arg0) {
-		Log.v("AndroidObjectDrawer", "drawDepthCharge: " + arg0.toString() + "\n");
-	}
-
-	@Override
-	public void drawEnemyShip(Position arg0) {
-		Log.v("AndroidObjectDrawer", "drawEnemyShip: " + arg0.toString() + "\n");
+	public void drawDepthCharge(DepthCharge arg0) {
 		Paint temp = new Paint();
-		temp.setColor(Color.WHITE);
-		this.mCanvas.drawCircle(arg0.getX(), arg0.getY(), 10, temp);
+		temp.setColor(Color.RED);
+		this.mCanvas.drawText("" + arg0.getTimeToDetonate(), arg0.getPosition().getX(), arg0.getPosition().getY(), temp);
 	}
 
 	@Override
-	public void drawExplosion(Position arg0) {
-		Log.v("AndroidObjectDrawer", "drawExplosion: " + arg0.toString() + "\n");
+	public void drawEnemyShip(EnemyShip arg0) {
+		Paint temp = new Paint();
+		temp.setColor(Color.BLACK);
+		this.mCanvas.drawCircle(arg0.getPosition().getX(), arg0.getPosition().getY(), 10, temp);
+	}
+
+	@Override
+	public void drawExplosion(Explosion arg0) {
+		Paint temp = new Paint();
+		temp.setColor(Color.RED);
+		temp.setAlpha(100);
+		this.mCanvas.drawCircle(arg0.getPosition().getX(), arg0.getPosition().getY(), arg0.getRadius(), temp);
 	}
 
 	@Override
 	public void drawMap() {
-		Log.v("AndroidObjectDrawer", "drawMap\n");
 		this.mCanvas.drawColor(Color.BLUE);
 	}
 
@@ -53,25 +61,30 @@ public class AndroidObjectDrawer extends ObjectDrawer {
 	}
 
 	@Override
-	public void drawSubmarine(Position arg0) {
-		Log.v("AndroidObjectDrawer", "drawSubmarine: " + arg0.toString() + "\n");
+	public void drawSubmarine(Submarine arg0) {
+		Paint temp = new Paint();
+		temp.setColor(Color.GREEN);
+		this.mCanvas.drawCircle(arg0.getPosition().getX(), arg0.getPosition().getY(), 10, temp);
+		temp.setColor(Color.WHITE);
+		this.mCanvas.drawText("Health: " + arg0.getHealth().getHealth(), 100f, 100f, temp);
 	}
 
 	@Override
-	public void drawTorpedo(Position arg0) {
-		Log.v("AndroidObjectDrawer", "drawTorpedo: " + arg0.toString() + "\n");
+	public void drawTorpedo(Torpedo arg0) {
+		Paint temp = new Paint();
+		temp.setColor(Color.WHITE);
+		temp.setAlpha(100);
+		this.mCanvas.drawCircle(arg0.getPosition().getX(), arg0.getPosition().getY(), 5, temp);
 	}
 
 	@Override
 	public void postChanges() {
-		Log.v("AndroidObjectDrawer", "postChanges\n");
 		this.mGameFragment.postCanvas(this.mCanvas);
 		this.mCanvas = null;
 	}
 
 	@Override
 	public void prepareDrawer() {
-		Log.v("AndroidObjectDrawer", "prepareDrawer\n");
 		this.mCanvas = this.mGameFragment.lockCanvas();
 	}
 
