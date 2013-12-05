@@ -23,18 +23,30 @@ public class AndroidObjectDrawer extends ObjectDrawer {
 		this.mGameFragment = frag;
 	}
 	
+	private boolean nullCheck(Object obj) {
+		if (obj == null) {
+			return true;
+		}
+		return false;
+	}
+	
 	@Override
 	public void drawDepthCharge(DepthCharge arg0) {
-		Paint temp = new Paint();
-		temp.setColor(Color.RED);
-		this.mCanvas.drawText("" + arg0.getTimeToDetonate(), arg0.getPosition().getX(), arg0.getPosition().getY(), temp);
+		if (!this.nullCheck(arg0)) {
+			Paint temp = new Paint();
+			temp.setColor(Color.RED);
+			temp.setTextSize(10);
+			this.mCanvas.drawText("" + arg0.getTimeToDetonate(), arg0.getPosition().getX(), arg0.getPosition().getY(), temp);
+		}
 	}
 
 	@Override
 	public void drawEnemyShip(EnemyShip arg0) {
-		Paint temp = new Paint();
-		temp.setColor(Color.BLACK);
-		this.mCanvas.drawCircle(arg0.getPosition().getX(), arg0.getPosition().getY(), 10, temp);
+		if (!this.nullCheck(arg0)) {
+			Paint temp = new Paint();
+			temp.setColor(Color.BLACK);
+			this.mCanvas.drawCircle(arg0.getPosition().getX(), arg0.getPosition().getY(), 10, temp);
+		}
 	}
 
 	@Override
@@ -62,19 +74,24 @@ public class AndroidObjectDrawer extends ObjectDrawer {
 
 	@Override
 	public void drawSubmarine(Submarine arg0) {
-		Paint temp = new Paint();
-		temp.setColor(Color.GREEN);
-		this.mCanvas.drawCircle(arg0.getPosition().getX(), arg0.getPosition().getY(), 10, temp);
-		temp.setColor(Color.WHITE);
-		this.mCanvas.drawText("Health: " + arg0.getHealth().getHealth(), 100f, 100f, temp);
+		if (!this.nullCheck(arg0)) {
+			Paint temp = new Paint();
+			temp.setColor(Color.GREEN);
+			this.mCanvas.drawCircle(arg0.getPosition().getX(), arg0.getPosition().getY(), 10, temp);
+			temp.setColor(Color.WHITE);
+			temp.setTextSize(25);
+			this.mCanvas.drawText("Health: " + arg0.getHealth().getHealth(), 100f, 100f, temp);
+		}
 	}
 
 	@Override
 	public void drawTorpedo(Torpedo arg0) {
-		Paint temp = new Paint();
-		temp.setColor(Color.WHITE);
-		temp.setAlpha(100);
-		this.mCanvas.drawCircle(arg0.getPosition().getX(), arg0.getPosition().getY(), 5, temp);
+		if (!this.nullCheck(arg0)) {
+			Paint temp = new Paint();
+			temp.setColor(Color.WHITE);
+			temp.setAlpha(100);
+			this.mCanvas.drawCircle(arg0.getPosition().getX(), arg0.getPosition().getY(), 5, temp);
+		}
 	}
 
 	@Override
